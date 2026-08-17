@@ -7,7 +7,7 @@
             "ES2022"
         ],
         "types": [
-            "node",
+            "node"
         ],
         "sourceMap": true,
         "rootDir": "src",
