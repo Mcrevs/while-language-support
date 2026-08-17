@@ -73,7 +73,7 @@ export async function getHwhilePath(
             actions.push(dismiss);
         }
         if (offer_dismiss && !path_required) {
-            actions.push(dismiss);
+            actions.push(dontShow);
         }
 
         let choice;
