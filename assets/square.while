@@ -1,0 +1,14 @@
+(* A simple program to square a number *)
+square read input {
+    mult_left := input;
+    output := 0;
+    while mult_left {
+        add_left := input;
+        while add_left {
+            output := cons nil output;
+            add_left := tl add_left
+        };
+        mult_left := tl mult_left
+    }
+} write output
+

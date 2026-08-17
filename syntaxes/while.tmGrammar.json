@@ -1,0 +1,282 @@
+{
+  "scopeName": "source.while",
+  "name": "WHILE",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#block" },
+    { "include": "#program-read" },
+    { "include": "#program-write" },
+    { "include": "#program-name" },
+
+    { "include": "#separator" },
+    { "include": "#statement-operator" },
+    { "include": "#control-keyword" },
+
+    { "include": "#expression" }
+  ],
+  "repository": {
+    "program-read": {
+      "begin": "\\s*(?<![a-zA-Z0-9_\\-\\$'])read(?![a-zA-Z0-9_\\-\\$'])",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.program.while" }
+      },
+      "end": "(?<![a-zA-Z0-9_\\-\\$'])([a-zA-Z_\\-\\$'][a-zA-Z0-9_\\-\\$']*)|(?=\\{|\\}|;|:|read|write)",
+      "endCaptures": {
+        "1": { "name": "variable.parameter.while" }
+      },
+      "patterns": [{ "include": "#comments" }]
+    },
+    "program-write": {
+      "begin": "\\s*(?<![a-zA-Z0-9_\\-\\$'])write(?![a-zA-Z0-9_\\-\\$'])",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.program.while" }
+      },
+      "end": "(?<![a-zA-Z0-9_\\-\\$'])([a-zA-Z_\\-\\$'][a-zA-Z0-9_\\-\\$']*)|(?=\\{|\\}|;|:|read|write)",
+      "endCaptures": {
+        "1": { "name": "variable.other.return.while" }
+      },
+      "patterns": [{ "include": "#comments" }]
+    },
+    "program-name": {
+      "patterns": [
+        {
+          "match": "^\\s*(?!(?:read|write)\\b)[a-zA-Z0-9_\\-$']+([a-zA-Z0-9_\\-$']?!)(?:(?=(?:\\s|\\(\\*.*?\\*\\)|//.*?\n)*(?:r|re|rea|read))|(?!(?:\\s|\\(\\*.*?\\*\\)|//.*?\n)*(?:[a-zA-Z0-9_\\-$']|[:\\{\\}])))",
+          "name": "entity.name.function.while"
+        },
+        {
+          "match": "(?<![a-zA-Z0-9_\\-$'])[a-zA-Z0-9_\\-$']+([a-zA-Z0-9_\\-$']?!)(?=(?:\\s|\\(\\*.*?\\*\\)|//.*?\\n)*(?:\\bread\\b))",
+          "name": "entity.name.function.while"
+        }
+      ]
+    },
+
+    "comments": {
+      "patterns": [
+        {
+          "begin": "\\(\\*",
+          "end": "\\*\\)",
+          "name": "comment.block.while"
+        },
+        {
+          "match": "//.*$",
+          "name": "comment.line.double-slash.while"
+        }
+      ]
+    },
+
+    "block": {
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.block.start.while" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.block.end.while" }
+      },
+      "name": "meta.block.while",
+      "patterns": [
+        { "include": "#comments" },
+
+        { "include": "#block" },
+        { "include": "#separator" },
+        { "include": "#statement-operator" },
+        { "include": "#control-keyword" },
+
+        { "include": "#expression" }
+      ]
+    },
+    "expression": {
+      "patterns": [
+        { "include": "#expression-keyword" },
+        { "include": "#expression-operator" },
+        { "include": "#expression-literals" },
+        { "include": "#atoms" },
+        { "include": "#expression-block" },
+        { "include": "#list" },
+        { "include": "#macro" },
+        { "include": "#literal-number" },
+        { "include": "#variable" }
+      ]
+    },
+
+    "separator": {
+      "match": ";",
+      "name": "punctuation.terminator.statement.while"
+    },
+    "statement-operator": {
+      "patterns": [
+        {
+          "match": ":=",
+          "name": "keyword.operator.assignment.while"
+        },
+        {
+          "match": ":",
+          "name": "punctuation.definition.case.while"
+        }
+      ]
+    },
+    "control-keyword": {
+      "patterns": [
+        {
+          "match": "\\b(?:if|else)\\b",
+          "name": "keyword.control.conditional.while"
+        },
+        {
+          "match": "\\bwhile\\b",
+          "name": "keyword.control.loop.while"
+        },
+        {
+          "match": "\\b(?:switch|case|default)\\b",
+          "name": "keyword.control.switch.while"
+        }
+      ]
+    },
+
+    "expression-keyword": {
+      "patterns": [
+        {
+          "match": "\\b(?:hd|tl)\\b",
+          "name": "keyword.operator.expression.leaf.while"
+        },
+        {
+          "match": "\\bcons\\b",
+          "name": "keyword.operator.expression.construct.while"
+        }
+      ]
+    },
+    "expression-operator": {
+      "match": "=",
+      "name": "keyword.operator.comparison.while"
+    },
+    "variable": {
+      "match": "(?<![a-zA-Z0-9_\\-$'@])([a-zA-Z_\\-$'][a-zA-Z0-9_\\-$']*)(?![a-zA-Z0-9_\\-$'])",
+      "name": "variable.other.while"
+    },
+    "expression-literals": {
+      "patterns": [
+        {
+          "match": "\\bnil\\b",
+          "name": "constant.language.null.while"
+        },
+        {
+          "match": "\\btrue\\b",
+          "name": "constant.language.boolean.true.while"
+        },
+        {
+          "match": "\\bfalse\\b",
+          "name": "constant.language.boolean.false.while"
+        }
+      ]
+    },
+    "atoms": {
+      "patterns": [
+        {
+          "match": "@:=(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.assignment-operator.while"
+        },
+        {
+          "match": "@asgn(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.assignment.while"
+        },
+        {
+          "match": "@doAsgn(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-assignment.while"
+        },
+        {
+          "match": "@while(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.while.while"
+        },
+        {
+          "match": "@doWhile(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-while.while"
+        },
+        {
+          "match": "@if(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.if.while"
+        },
+        {
+          "match": "@doIf(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-if.while"
+        },
+        {
+          "match": "@var(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.var.while"
+        },
+        {
+          "match": "@quote(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.quote.while"
+        },
+        {
+          "match": "@hd(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.head.while"
+        },
+        {
+          "match": "@doHd(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-head.while"
+        },
+        {
+          "match": "@tl(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.tail.while"
+        },
+        {
+          "match": "@doTl(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-tail.while"
+        },
+        {
+          "match": "@cons(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.construct.while"
+        },
+        {
+          "match": "@doCons(?![a-zA-Z0-9_\\-$'])",
+          "name": "constant.language.atom.do-construct.while"
+        },
+        {
+          "match": "@[a-zA-Z0-9_\\-$']*",
+          "name": "constant.language.atom.other.while",
+          "comment": "catch all case for while typing and invalid atoms"
+        }
+      ]
+    },
+    "macro": {
+      "match": "(<)([a-zA-Z0-9_\\-$']*)(>)",
+      "captures": {
+        "0": { "name": "entity.name.function.while" },
+        "1": { "name": "punctuation.macro.start.while" },
+        "3": { "name": "punctuation.macro.end.while" }
+      }
+    },
+    "literal-number": {
+      "match": "\\b[0-9]+",
+      "name": "constant.numeric.while"
+    },
+    "expression-block": {
+      "begin": "\\(",
+      "beginCaptures": {
+        "0": { "name": "punctuation.parenthesis.start.while" }
+      },
+      "end": "\\)|(?=;|\\{|\\}|:)",
+      "endCaptures": {
+        "0": { "name": "punctuation.parenthesis.end.while" }
+      },
+      "patterns": [{ "include": "#comments" }, { "include": "#expression" }]
+    },
+    "list": {
+      "begin": "\\[",
+      "beginCaptures": {
+        "0": { "name": "punctuation.list.begin.while" }
+      },
+      "end": "\\]|(?=;|\\{|\\}|:)",
+      "endCaptures": {
+        "0": { "name": "punctuation.list.end.while" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#expression" },
+        {
+          "match": ",",
+          "name": "punctuation.separator.while"
+        }
+      ]
+    }
+  }
+}

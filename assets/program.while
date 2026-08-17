@@ -1,0 +1,18 @@
+(* A program to do various calculations *)
+program read input {
+    mode := hd input;
+    value := hd tl input;
+    atoms := [@:=, @while, @doWhile];
+    switch mode {
+        case 1: // double
+            output := value;
+            while value {
+                output := cons nil output;
+                value := tl value
+            }
+        case 2: // square
+            output := <square> value
+        default:
+            output := false
+    }
+} write output

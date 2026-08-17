@@ -1,0 +1,83 @@
+{
+  "program": {
+    "prefix": "program",
+    "body": [
+      "${1:$TM_FILENAME_BASE} read ${2:input} {",
+      "\t$0",
+      "} write ${3:output}"
+    ],
+    "description": "An empty program"
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while ${1:expression} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "A while loop"
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:expression} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "An if statement"
+  },
+  "if-else": {
+    "prefix": "if-else",
+    "body": [
+      "if ${1:expression} {",
+      "\t$0",
+      "} else {",
+      "\t",
+      "}"
+    ],
+    "description": "An if-else statement"
+  },
+  "else": {
+    "prefix": "else",
+    "body": [
+      "else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "An else block"
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": [
+      "switch ${1:expression} {",
+      "\tcase ${2:expression}:",
+      "\t\t$0",
+      "\tdefault:",
+      "\t\t",
+      "}"
+    ],
+    "description": "A switch statement"
+  },
+  "default-rule": {
+    "prefix": "default",
+    "body": [
+      "default:",
+      "\t$0"
+    ],
+    "description": "The default rule of a switch statement"
+  },
+  "case-rule": {
+    "prefix": "case",
+    "body": [
+      "case ${1:expression}:",
+      "\t$0"
+    ],
+    "description": "A case rule of a switch statement"
+  },
+  "macro": {
+    "prefix": ["macro", "program-call"],
+    "body": [
+      "${1:variable} := <${2:program}> ${0:expression}"
+    ]
+  }
+}

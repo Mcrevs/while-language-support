@@ -1,0 +1,11 @@
+test read input {
+    sw
+
+    output := <program> input;
+
+    if expression {
+        
+    } else {
+        
+    }
+} write output

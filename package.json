@@ -1,0 +1,220 @@
+{
+  "name": "while-language-support",
+  "displayName": "WHILE Language Support",
+  "description": "VSCode support for the WHILE programming language.",
+  "author": {
+    "name": "Mcrevs",
+    "url": "https://github.com/Mcrevs/"
+  },
+  "icon": "icons/while-icon-dark.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mcrevs/while-language-support"
+  },
+  "version": "1.0.0",
+  "publisher": "Mcrevs",
+  "engines": {
+    "vscode": "^1.125.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Debuggers"
+  ],
+  "keywords": [
+    "while",
+    "extended while",
+    "language",
+    "syntax",
+    "highlighter",
+    "validator",
+    "tasks",
+    "debugger",
+    "interactive",
+    "completions"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "WHILE Language Support",
+      "properties": {
+        "hwhile.executablePath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "The default path to use for the HWhile executable."
+        },
+        "hwhile.printmode": {
+          "type": "string",
+          "default": "L",
+          "markdownDescription": "The default printmode to use for HWhile."
+        },
+        "hwhile.promptIfMissing": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Whether to prompt the user on startup if no path to HWhile is specified."
+        },
+        "hwhile.Linting": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Automatically use HWhile's unparser mode to validate open files for error highlighting. Requires a HWhile path to be specified."
+        },
+        "while.maxParseSize": {
+          "type": "number",
+          "default": 8,
+          "minimum": 1,
+          "markdownDescription": "The maximum file size, in kilobytes, that will be parsed for completions. Large values may cause all completions to load indefinitely."
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "while",
+        "extensions": [
+          ".while"
+        ],
+        "aliases": [
+          "WHILE",
+          "while"
+        ],
+        "firstLine": "\\b[a-zA-Z_\\-$'][a-zA-Z0-9_\\-$']*(?:\\s|\\(\\*.*?\\*\\))*\\bread\\b",
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/while-icon-light.png",
+          "dark": "./icons/while-icon-dark.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "while",
+        "scopeName": "source.while",
+        "path": "./syntaxes/while.tmGrammar.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "while",
+        "path": "./snippets/while.json"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "hwhile",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "The path to the file that contains the program that should be run."
+          },
+          "input": {
+            "type": "string",
+            "description": "The input to use when running the program. Asks each time if none is provided."
+          },
+          "printmode": {
+            "type": "string",
+            "description": "The print mode flag. Can be one of: '', 'i', 'iv', 'l', 'li', 'liv', 'L', 'La', 'd', 'di', 'div', 'dl', 'dli', 'dliv', 'dL', 'dLa'. Defaults to L.",
+            "default": "L"
+          },
+          "hwhilePath": {
+            "type": "string",
+            "description": "The path to the hwhile executable. Defaults to the path set in the extension settings if not provided."
+          }
+        },
+        "when": "processExecutionSupported"
+      }
+    ],
+    "commands": [
+      {
+        "command": "while-language-support.runOpenFileHWhile",
+        "title": "Run Open File in HWhile",
+        "icon": "$(play)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "while-language-support.runOpenFileHWhile",
+          "group": "navigation",
+          "when": "resourceLangId == while"
+        }
+      ]
+    },
+    "debuggers": [
+      {
+        "type": "hwhile",
+        "label": "HWhile Interactive Mode",
+        "languages": [
+          "while"
+        ],
+        "configurationAttributes": {
+          "launch": {
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "The path to the file that contains the program that should be run.",
+                "default": "${file}"
+              },
+              "input": {
+                "type": "string",
+                "description": "The input to use when running the program. Asks each time if none is provided."
+              },
+              "printmode": {
+                "type": "string",
+                "description": "The print mode flag. Can be one of: '', 'i', 'iv', 'l', 'li', 'liv', 'L', 'La'. Defaults to L.",
+                "default": "L"
+              },
+              "hwhilePath": {
+                "type": "string",
+                "description": "The path to the hwhile executable. Defaults to the path set in the extension settings if not provided.",
+                "default": ""
+              }
+            }
+          }
+        },
+        "configurationSnippets": [
+          {
+            "label": "HWhile",
+            "description": "A configuration for debugging the current open file using HWhile.",
+            "body": {
+              "type": "hwhile",
+              "request": "launch",
+              "name": "HWhile: Debug File",
+              "file": "${file}",
+              "printmode": "L",
+              "hwhilePath": "./hwhile"
+            }
+          }
+        ],
+        "initialConfigurations": []
+      }
+    ],
+    "breakpoints": [
+      {
+        "language": "while"
+      }
+    ]
+  },
+  "extensionKind": [
+    "workspace", "ui"
+  ],
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/node": "24.x",
+    "@types/vscode": "^1.125.0",
+    "eslint": "^10.5.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  }
+}
