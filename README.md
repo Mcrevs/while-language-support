@@ -21,7 +21,7 @@ Includes a debug adaptor for HWhile's interactive mode. This allows for stepping
 The program input, printmode (output type), file to use, and hwhile interpreter to use can be configured in `launch.json`.
 #### Error Highlighting
 Adds error highlighting for WHILE programs using HWhile's unparser mode. This can be disabled in the extension settings.
-![HWhile Linting](./assets/linting.png)
+![HWhile validation](./assets/validation.png)
 #### Tasks
 Includes a task for running programs through HWhile more conveniently. It is accessible from the `Terminal > Run Task...` dialog, the `while-language-support.runOpenFileHWhile` command, or the play button in the top right of WHILE files.
 ![HWhile Task](./assets/hwhile_task.png)
@@ -61,7 +61,7 @@ This extension includes the following settings:
 - `hwhile.executablePath`: The path to where the HWhile interpreter is located.
 - `hwhile.printmode`: What printmode to use for HWhile if none is provided in `launch.json` or `tasks.json`.
 - `hwhile.promptIfMissing`: Whether to prompt you to add a path to the HWhile interpreter on startup.
-- `hwhile.Linting`: Whether to use HWhile's unparser mode for linting.
+- `hwhile.validation`: Whether to use HWhile's unparser mode for validation.
 - `while.maxParseSize`: The maximum size for a file to be parsed for completions.
 
 ## Release Notes

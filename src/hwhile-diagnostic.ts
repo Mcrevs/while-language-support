@@ -70,7 +70,7 @@ async function runUnparser(document: vscode.TextDocument | undefined) {
         return;
     }
 
-    if (!helpers.getHwhileEnableLinting()) {
+    if (!helpers.getHwhileEnableValidation()) {
         diagnosticCollection.clear();
         return;
     }
@@ -78,7 +78,7 @@ async function runUnparser(document: vscode.TextDocument | undefined) {
     const filePath = document.uri.fsPath;
     const currentDir = path.dirname(filePath);
 
-    const hwhilePath = await helpers.getHwhilePathQuiet();
+    const hwhilePath = helpers.getHwhilePathQuiet();
     if (!hwhilePath) {
         diagnosticCollection.clear();
         return;

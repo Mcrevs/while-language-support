@@ -54,7 +54,7 @@
           "default": true,
           "markdownDescription": "Whether to prompt the user on startup if no path to HWhile is specified."
         },
-        "hwhile.Linting": {
+        "hwhile.validation": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Automatically use HWhile's unparser mode to validate open files for error highlighting. Requires a HWhile path to be specified."

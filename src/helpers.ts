@@ -9,11 +9,11 @@ export function activate(context: vscode.ExtensionContext) {
     extensionContext = context;
 };
 
-export async function getHwhileEnableLinting() {
+export function getHwhileEnableValidation() {
     const config = vscode.workspace.getConfiguration('hwhile');
-    const enableLinting = config.get<boolean>('Linting', true);
+    const enableValidation = config.get<boolean>('validation', true);
 
-    return enableLinting;
+    return enableValidation;
 }
 
 export function getDefaultPrintmode() {
@@ -32,14 +32,14 @@ export function getMaxParseSize() {
     return maxParseSizeKb * 1024;
 }
 
-export async function getHwhileMissingPrompt() {
+export function getHwhileMissingPrompt() {
     const config = vscode.workspace.getConfiguration('hwhile');
-    const enableLinting = config.get<boolean>('promptIfMissing', true);
+    const promptIfMissing = config.get<boolean>('promptIfMissing', true);
 
-    return enableLinting;
+    return promptIfMissing;
 }
 
-export async function getHwhilePathQuiet(): Promise<string | undefined> {
+export function getHwhilePathQuiet(): string | undefined {
     const config = vscode.workspace.getConfiguration('hwhile');
     let hwhilePath = config.get<string>('executablePath');
 
@@ -57,7 +57,7 @@ export async function getHwhilePath(
     let hwhilePath = config.get<string>('executablePath');
 
     if (!hwhilePath || hwhilePath === "") {
-        if (!path_required && !await getHwhileMissingPrompt()) {
+        if (!path_required && !getHwhileMissingPrompt()) {
             // If the user said to not show again skip the ask check
             // Only do this when it is not required
             return undefined;
