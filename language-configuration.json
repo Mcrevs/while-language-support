@@ -36,6 +36,6 @@
   },
   "indentationRules": {
     "increaseIndentPattern": "(?:\\{|\\[|\\(|:)(?:\\s|//.*|\\(\\*.*?\\*\\))*$",
-    "decreaseIndentPattern": "\\}|\\]|\\)"
+    "decreaseIndentPattern": "(?:\\}|\\]|\\))(?:\\s|//.*|\\(\\*.*?\\*\\))*$"
   }
 }
