@@ -66,6 +66,14 @@ This extension includes the following settings:
 
 ## Release Notes
 
+### 1.1.0
+
+This release features some minor bug fixes found with the extension. Please see the changes below:
+- Added clearer error reporting for errors caused while loading a program in the HWhile debugger
+- Fixed unintuitive behaviour while closing brackets causing annoying removed indentation
+- Added clear text stating the requirement for an absolute path to be used in the `launch.json`
+- Fixed issues caused by simultaneous requests to the HWhile repl causing the results to be mixed up
+
 ### 1.0.0
 
 Initial release of WHILE Language Support.
