@@ -278,7 +278,13 @@ export class HWhileDebugAdapter implements vscode.DebugAdapter {
             }
         });
 
-        await this.debugSession.launch();
+        const launchError = await this.debugSession.launch();
+        if (launchError) {
+            this.sendEvent('output', {
+                category: 'stderr',
+                output: `An error occoured while loading the file:\n${launchError}`
+            });
+        }
 
         for (const [sourcePathKey, lines] of this.pendingBreakpoints.entries()) {
             if (lines.length === 0) {

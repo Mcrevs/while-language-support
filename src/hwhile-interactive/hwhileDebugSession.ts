@@ -141,7 +141,7 @@ export class HWhileDebugSession {
         return inspection.stopProgram;
     }
 
-    async launch(): Promise<void> {
+    async launch(): Promise<undefined|string> {
         const cwd = path.dirname(this.config.file);
         this.repl = new HWhileReplConnector();
         this.repl.start({
@@ -157,11 +157,16 @@ export class HWhileDebugSession {
         const startupOutput = await this.repl.readUntilPrompt();
 
         const baseFilename = path.basename(this.config.file, path.extname(this.config.file));
-        await this.repl.sendCommand(`:load ${baseFilename} ${this.config.input}`);
+        const loadResult = await this.repl.sendCommand(`:load ${baseFilename} ${this.config.input}`);
+        if (loadResult?.trim() !== `Program '${baseFilename}' loaded.`){
+            return loadResult;
+        }
 
         if (this.config.printmode && this.config.printmode !== '') {
             await this.repl.sendCommand(`:printmode ${this.config.printmode}`);
         }
+
+        return undefined;
     }
 
     private async executeCommand(command: string): Promise<boolean> {
