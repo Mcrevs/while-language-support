@@ -118,12 +118,7 @@ export class HWhileDebugAdapter implements vscode.DebugAdapter {
 
     private normalizeSourcePath(source: string): string {
         try {
-            if (source.startsWith('file:')) {
-                return vscode.Uri.parse(source).fsPath;
-            }
-            if (path.isAbsolute(source)) {
-                return path.resolve(source);
-            }
+            return path.resolve(source);
         } catch {}
         return source;
     }

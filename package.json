@@ -107,7 +107,7 @@
         "properties": {
           "file": {
             "type": "string",
-            "description": "The path to the file that contains the program that should be run."
+            "description": "The absolute path to the file that contains the program that should be run. You can use `${file}` for the currently open file or `${cwd}/program.while` for a specific file."
           },
           "input": {
             "type": "string",
@@ -154,7 +154,7 @@
             "properties": {
               "file": {
                 "type": "string",
-                "description": "The path to the file that contains the program that should be run.",
+                "description": "The absolute path to the file that contains the program that should be run. You can use \"${file}\" for the currently open file or \"${cwd}/program.while\" for a specific file.",
                 "default": "${file}"
               },
               "input": {
